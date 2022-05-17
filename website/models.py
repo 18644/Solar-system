@@ -1,13 +1,20 @@
 from . import db
-from sqlalchemy.sql import func
+from flask_login import UserMixin
 
-class solarSystem(db.Model):
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(150), unique = True)
+    password = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
+
+class SolarSystem(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(10000), nullable = False)
     star = db.Column(db.String(10000))
-    planet_id = db.Column(db.Interger, db.ForeignKey('planet.id'))
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
+    description = db.Column(db.String(10000))
 
-class planet(db.Model):
-    id = db.Column(db.Interger, primary_key = True)
+class Planet(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(10000), nullable = False)
-    description = db.Column(db.string(10000))
+    description = db.Column(db.String(10000))
