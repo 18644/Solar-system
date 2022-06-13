@@ -5,7 +5,7 @@ from . import db
 
 views = Blueprint('views', __name__)
 
-@views.route('/SolarSystems', methods=['GET', 'POST']) 
+@views.route('/', methods=['GET', 'POST']) 
 @login_required
 def SolarSystems():
         if request.method == "GET":
@@ -15,6 +15,9 @@ def SolarSystems():
 @views.route('/planet', methods=['POST', 'GET']) 
 @login_required
 def planet():
-        if request.method == "GET":
+        if request.method == "POST":
                 query = Planet.query.all()
                 return render_template("planet.html", query ,user=current_user)
+        else:
+                flash("Nothing found, please try again!")
+                return render_template("planet.html")

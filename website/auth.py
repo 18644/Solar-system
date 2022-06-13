@@ -6,6 +6,10 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+@app.route('/reset_password')
+def reset_request():
+    return render_template('reset_request.html', title='reset request')
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
